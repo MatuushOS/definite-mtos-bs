@@ -7,4 +7,3 @@ squashfs-root/
 *.iso
 *.md5sum
 .hosts.backup
-.github/*/*

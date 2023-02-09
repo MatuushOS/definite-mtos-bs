@@ -7,5 +7,5 @@ set -e
 rm -f ubuntu.iso
 
 source fetch_build.conf
-wget ubuntu.iso "https://releases.ubuntu.com/$CODENAME/ubuntu-$RELEASE-desktop-$ARCH.iso" sudo chmod +x ./build/build.sh ./build/switch.sh ./build/minimal.sh
+wget ubuntu.iso "https://releases.ubuntu.com/$CODENAME/ubuntu-$RELEASE-desktop-$ARCH.iso"; sudo chmod +x ./build/build.sh ./build/switch.sh ./build/minimal.sh
 sudo make build.iso

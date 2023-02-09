@@ -1,0 +1,40 @@
+name: Make_Release
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "* * 5 * *"
+
+jobs:
+  build:
+    name: Build OS
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Build
+        env:
+             KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+             PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+        run: |
+         sudo apt update
+         sudo apt-get install xorriso coreutils squashfs-tools git axel sed -y
+         sudo -Hi
+         cd ~/
+         git clone -b $GITHUB_REF_NAME "https://github.com/TenTypekMatus/RRR-builder.git" && cd ./RRR-builder
+         wget https://cdimage.ubuntu.com/ubuntu/daily-live/current/lunar-desktop-amd64.iso -O ubuntu.iso
+         chmod +x ./build/build.sh ./build/switch.sh ./build/minimal.sh
+         sudo su -c "./build/build.sh; ./build/build.sh; ./build/minimal.sh"
+         rm -rf ./ubuntu.iso
+         chmod +x ~/RRR-builder/.github/workflows/sign.sh # Is used cause yaml can't handle it
+         ~/RRR-builder/.github/workflows/sign.sh
+         sudo find . -maxdepth 1 ! \( -name "*.iso*" -o -name '.' -o -name '..' \) -exec sudo rm -rf {} \;
+      - uses: actions/upload-artifact@v3.0.0
+        with:
+          name: "rolling-rhino"
+          path: ~/RRR-builder/
+          retention-days: 5
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: rolling-$(date -I).iso

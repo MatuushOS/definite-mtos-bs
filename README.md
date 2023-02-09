@@ -1,6 +1,6 @@
-# Official ISO build system for Rolling Rhino Remix
+# Official ISO build system for MatuusOS (debootstrap is a heck of a pain)
 [![Make_Release](https://github.com/TenTypekMatus/RRR-builder/actions/workflows/make_release.yml/badge.svg?event=workflow_run)](https://github.com/TenTypekMatus/RRR-builder/actions/workflows/make_release.yml)
-### How to install
+## How to install
 First you need 
 - `cd-boot-images-amd64`
 - `xorriso`
@@ -54,4 +54,3 @@ own remix of Rolling Rhino Remix
 ## Thanks To...
 * the original iso builder for Ubuntu Unity: https://gitlab.com/ubuntu-unity/ubuntu-remixes/ubuntu-unity for base project
 * original creation_script at https://github.com/rollingrhinoremix/creation_script which helped convert ubuntu to RRR
-# definite-mtos-bs
