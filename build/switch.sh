@@ -17,13 +17,13 @@ mkdir -p /etc/skel/.config
 git clone https://github.com/MatuusOS/i3-dotfiles
 # Install rhino-deinst onto system
 mkdir ~/creation/rhino-deinst
-cd ~/creation/rhino-deinst
+cd ~/creation/rhino-deinst || exit
 wget -q https://github.com/rollingrhinoremix/rhino-deinst/releases/latest/download/rhino-deinst
 chmod +x ~/creation/rhino-deinst/rhino-deinst
 mv ~/creation/rhino-deinst/rhino-deinst /usr/bin
 # Install the latest Linux kernel (from Ubuntu mainline repositories)
 mkdir ~/creation/kernel
-cd ~/creation/kernel
+cd ~/creation/kernel || exit
 echo 'deb http://deb.xanmod.org releases main' | sudo tee ~/creation/etc/apt/sources.list.d/xanmod-kernel.list
 sudo apt update
 sudo apt install ./*.deb -y
